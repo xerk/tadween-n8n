@@ -1,22 +1,23 @@
 {
-  "name": "n8n-nodes-postiz",
-  "version": "0.2.17",
-  "description": "The ultimate social media scheduling tool",
+  "name": "n8n-nodes-tadween",
+  "version": "1.0.0",
+  "description": "n8n community node for Tadween, the social media scheduling tool",
   "keywords": [
+    "tadween",
     "social media",
     "scheduling tool",
     "social media scheduling tool",
     "n8n-community-node-package"
   ],
   "license": "MIT",
-  "homepage": "https://postiz.com",
+  "homepage": "https://tadween.app",
   "author": {
-    "name": "Nevo David",
-    "email": "nevo@postiz.com"
+    "name": "Xerk LLC",
+    "url": "https://tadween.app"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gitroomhq/postiz-n8n"
+    "url": "git+https://github.com/xerk/tadween-n8n.git"
   },
   "engines": {
     "node": ">=20.15"
@@ -37,10 +38,10 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/PostizApi.credentials.js"
+      "dist/credentials/TadweenApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Postiz/Postiz.node.js"
+      "dist/nodes/Tadween/Tadween.node.js"
     ]
   },
   "devDependencies": {
@@ -53,5 +54,11 @@
   },
   "peerDependencies": {
     "n8n-workflow": "*"
+  },
+  "contributors": [
+    "Nevo David (original n8n-nodes-postiz, https://github.com/gitroomhq/postiz-n8n)"
+  ],
+  "bugs": {
+    "url": "https://github.com/xerk/tadween-n8n/issues"
   }
 }

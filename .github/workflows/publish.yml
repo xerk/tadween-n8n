@@ -1,0 +1,66 @@
+name: Publish to npm
+
+# Publishes n8n-nodes-tadween to npm with provenance (n8n asks community
+# nodes to be published from GitHub Actions with provenance to be verified).
+#
+#   - Push a tag `v1.0.1` (must match `version` in package.json), or
+#   - run it by hand from the Actions tab; `dry_run` prints the tarball
+#     without publishing.
+#
+# Needs the repository secret NPM_TOKEN (npm automation / granular token).
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Dry run (no publish)
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Check the tag matches package.json
+        if: github.event_name == 'push'
+        run: |
+          actual=$(node -p "require('./package.json').version")
+          if [ "$actual" != "${GITHUB_REF_NAME#v}" ]; then
+            echo "Tag says ${GITHUB_REF_NAME#v} but package.json says $actual"
+            exit 1
+          fi
+
+      - name: Install, build and lint
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build
+          pnpm exec eslint -c .eslintrc.prepublish.js nodes credentials package.json
+
+      # The steps above are what prepublishOnly does, so publish skips scripts
+      - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+            npm publish --access public --ignore-scripts --dry-run
+          else
+            npm publish --access public --ignore-scripts --provenance
+          fi

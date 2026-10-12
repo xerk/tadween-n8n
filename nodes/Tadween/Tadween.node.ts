@@ -7,26 +7,26 @@ import {
 	NodeOperationError,
 } from 'n8n-workflow';
 import { NodeConnectionType } from 'n8n-workflow';
-import { postizApiRequest } from './GenericFunctions';
+import { tadweenApiRequest } from './GenericFunctions';
 
-export class Postiz implements INodeType {
+export class Tadween implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Postiz',
-		name: 'postiz',
+		displayName: 'Tadween',
+		name: 'tadween',
 		// eslint-disable-next-line n8n-nodes-base/node-class-description-icon-not-svg
-		icon: 'file:postiz.png',
+		icon: 'file:tadween.svg',
 		group: ['output'],
 		version: 1,
 		subtitle: '={{$parameter["operation"]}}',
-		description: 'Consume Postiz API',
+		description: 'Consume Tadween API',
 		defaults: {
-			name: 'Postiz',
+			name: 'Tadween',
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
-				name: 'postizApi',
+				name: 'tadweenApi',
 				required: true,
 			},
 		],
@@ -40,8 +40,8 @@ export class Postiz implements INodeType {
 					{
 						name: 'Create Post',
 						value: 'createPost',
-						description: 'Schedule a post to Postiz',
-						action: 'Schedule a post to postiz',
+						description: 'Schedule a post to Tadween',
+						action: 'Schedule a post to tadween',
 					},
 					{
 						name: 'Delete Post',
@@ -70,8 +70,8 @@ export class Postiz implements INodeType {
 					{
 						name: 'Upload File',
 						value: 'uploadFile',
-						description: 'Upload a file to Postiz',
-						action: 'Upload a file to postiz',
+						description: 'Upload a file to Tadween',
+						action: 'Upload a file to tadween',
 					},
 					{
 						name: 'Video Function',
@@ -347,7 +347,7 @@ export class Postiz implements INodeType {
 								default: '',
 								required: true,
 								description:
-									'ID of the channel (you can get from the get channels operation or from the Postiz UI)',
+									'ID of the channel (you can get from the get channels operation or from the Tadween UI)',
 							},
 							{
 								displayName: 'Group',
@@ -703,7 +703,7 @@ export class Postiz implements INodeType {
 						posts,
 					};
 
-					responseData = await postizApiRequest.call(this, 'POST', '/posts', body);
+					responseData = await tadweenApiRequest.call(this, 'POST', '/posts', body);
 				}
 
 				if (operation === 'getPosts') {
@@ -717,7 +717,7 @@ export class Postiz implements INodeType {
 						...(customer && { customer }),
 					};
 
-					responseData = await postizApiRequest.call(this, 'GET', '/posts', {}, query);
+					responseData = await tadweenApiRequest.call(this, 'GET', '/posts', {}, query);
 				}
 
 				if (operation === 'uploadFile') {
@@ -740,16 +740,16 @@ export class Postiz implements INodeType {
 
 					const formData = new FormData();
 					formData.append('file', blob, binaryData.fileName);
-					responseData = await postizApiRequest.call(this, 'POST', '/upload', formData);
+					responseData = await tadweenApiRequest.call(this, 'POST', '/upload', formData);
 				}
 
 				if (operation === 'getIntegrations') {
-					responseData = await postizApiRequest.call(this, 'GET', '/integrations');
+					responseData = await tadweenApiRequest.call(this, 'GET', '/integrations');
 				}
 
 				if (operation === 'deletePost') {
 					const postId = this.getNodeParameter('postId', i) as string;
-					responseData = await postizApiRequest.call(this, 'DELETE', `/posts/${postId}`);
+					responseData = await tadweenApiRequest.call(this, 'DELETE', `/posts/${postId}`);
 				}
 
 				if (operation === 'generateVideo') {
@@ -775,7 +775,7 @@ export class Postiz implements INodeType {
 						});
 					}
 
-					responseData = await postizApiRequest.call(this, 'POST', '/generate-video', body);
+					responseData = await tadweenApiRequest.call(this, 'POST', '/generate-video', body);
 				}
 
 				if (operation === 'videoFunction') {
@@ -802,7 +802,7 @@ export class Postiz implements INodeType {
 						});
 					}
 
-					responseData = await postizApiRequest.call(this, 'POST', '/video/function', body);
+					responseData = await tadweenApiRequest.call(this, 'POST', '/video/function', body);
 				}
 
 				const executionData = this.helpers.constructExecutionMetaData(

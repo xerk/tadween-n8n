@@ -1,17 +1,17 @@
 {
-	"node": "n8n-nodes-base.postiz",
+	"node": "n8n-nodes-base.tadween",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
 	"categories": ["Social Media", "Scheduling"],
 	"resources": {
 		"credentialDocumentation": [
 			{
-				"url": "https://docs.postiz.com/public-api"
+				"url": "https://tadween.app/ai-agent"
 			}
 		],
 		"primaryDocumentation": [
 			{
-				"url": "https://docs.postiz.com/public-api"
+				"url": "https://tadween.app/ai-agent"
 			}
 		]
 	}

@@ -5,10 +5,10 @@ import {
 	INodeProperties,
 } from 'n8n-workflow';
 
-export class PostizApi implements ICredentialType {
-	name = 'postizApi';
-	displayName = 'Postiz API';
-	documentationUrl = 'https://docs.postiz.com/public-api';
+export class TadweenApi implements ICredentialType {
+	name = 'tadweenApi';
+	displayName = 'Tadween API';
+	documentationUrl = 'https://tadween.app/ai-agent';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'API Key',
@@ -21,7 +21,7 @@ export class PostizApi implements ICredentialType {
 			displayName: 'Host',
 			name: 'host',
 			type: 'string',
-			default: 'https://api.postiz.com',
+			default: 'https://studio.tadween.app/api',
 		},
 	];
 

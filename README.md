@@ -1,24 +1,23 @@
 # Introduction
-[Postiz](https://postiz.com) is a powerful social media scheduling tool that allows you to manage your social media accounts efficiently.
+[Tadween](https://tadween.app) is a powerful social media scheduling tool that allows you to manage your social media accounts efficiently.
 
 You can use n8n to automate your workflow and post to multiple social media platforms at once.
 
-You can [self-host](https://docs.postiz.com/introduction) Postiz or use our [cloud version](https://platform.postiz.com).
+Use it with [Tadween](https://studio.tadween.app) or a self-hosted instance.
 For example: Load news from Reddit >> Make it a video with AI >> Post it to your social media accounts.
 
-Postiz supports: X, LinkedIn, BlueSky, Instagram, Facebook, TikTok, YouTube, Pinterest, Dribbble, Telegram, Discord, Slack, Threads, Lemmy, Reddit, Mastodon, Warpcast, Nostr and VK.
-
-You can learn how to use Postiz + n8n after installation here:
-https://youtu.be/c50u3K3xsCI
+Tadween supports: X, LinkedIn, BlueSky, Instagram, Facebook, TikTok, YouTube, Pinterest, Dribbble, Telegram, Discord, Slack, Threads, Lemmy, Reddit, Mastodon, Warpcast, Nostr and VK.
 
 ---
 
-> Note
-> If you are self-hosting Postiz on port 5000 (reverse proxy),
-> Your host must end with /api for example:
-> http://yourdomain.com/api
+## Credentials
 
-Alternatively, you can use the SDK with curl, check the [Postiz API documentation](https://docs.postiz.com/public-api) for more information.
+- **Host:** `https://studio.tadween.app/api` (the default). A self-hosted instance uses its backend URL, which usually ends with `/api` (for example `https://yourdomain.com/api`). Don't add `/public/v1`.
+- **API Key:** Tadween → Settings → API & MCP. Paste it as it is, without "Bearer".
+
+n8n tests the connection when you save (`GET /public/v1/is-connected`).
+
+Alternatively, call the public API directly (`{Host}/public/v1/...` with the key in the `Authorization` header), or connect an n8n AI Agent to the Tadween MCP server: see [tadween.app/ai-agent](https://tadween.app/ai-agent).
 
 ---
 
@@ -27,10 +26,9 @@ Alternatively, you can use the SDK with curl, check the [Postiz API documentatio
 - Click on settings
 - Click on Community Nodes
 - Click on Install
-- Add "n8n-nodes-postiz" to "npm Package Name"
+- Add "n8n-nodes-tadween" to "npm Package Name"
 - Click on Install
 
-![community-node.png](community-node.png)
 
 ---
 
@@ -42,9 +40,9 @@ mkdir -p ~/.n8n/custom
 npm init -y
 ```
 
-Then install the Postiz node package:
+Then install the Tadween node package:
 ```
-npm install n8n-nodes-postiz
+npm install n8n-nodes-tadween
 ```
 
 ## For docker users (manual installation)
@@ -54,9 +52,9 @@ mkdir -p ~/n8n-custom-nodes
 npm init -y
 ```
 
-install the Postiz node package:
+install the Tadween node package:
 ```bash
-npm install n8n-nodes-postiz
+npm install n8n-nodes-tadween
 ```
 
 When you run the n8n docker container, mount the custom nodes folder to the container:
@@ -64,3 +62,9 @@ Add the following environment variable to your docker run command:
 ```
 N8N_CUSTOM_EXTENSIONS="~/n8n-custom-nodes"
 ```
+
+---
+
+## Credits and license
+
+Based on [n8n-nodes-postiz](https://github.com/gitroomhq/postiz-n8n) by gitroomhq (Nevo David), MIT licensed. See [LICENSE.md](LICENSE.md).
